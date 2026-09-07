@@ -1,6 +1,6 @@
 module clock_divider #(
     parameter CLK_FREQ = 50000000,
-    parameter TARGET_FREQ = 50000000
+    parameter TARGET_FREQ = 1000000
 )
 (
     input clk, 
