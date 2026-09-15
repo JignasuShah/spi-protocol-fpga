@@ -41,8 +41,8 @@ module spi_master (
             if (state_reg == IDLE) begin
                 bit_counter <= 3'd0; 
                 delay_counter <= 3'd0; 
-                rx_valid <= 1'b0; 
-                rx_out <= rx_reg; 
+                rx_valid <= 1'b0;  
+                rx_out <= 8'b0; 
 
                 if (start) begin
                     tx_reg <= tx_data; 
@@ -65,17 +65,12 @@ module spi_master (
                 if (sclk_negtick) begin
                     bit_counter <= bit_counter + 1;
                     rx_reg <= {rx_reg[6:0], miso}; 
-
-                    if (bit_counter == 3'd7) begin
-                        rx_valid <= 1'b1; 
-                    end
-                    else begin
-                        rx_valid <= 1'b0; 
-                    end
                 end
 
             end
             else if (state_reg == HOLD) begin
+                rx_out <= rx_reg;
+                rx_valid <= 1'b1; 
                 delay_counter <= delay_counter + 1; 
             end
 
